@@ -47,7 +47,7 @@ app.get('/getTask', function(req, res){
       console.log('connected to the db in /getTask');
       taskArray= [];
       var taskSet = connection.query("SELECT * from tasks");
-      console.log(taskSet);
+      // console.log(taskSet);
       taskSet.on('row', function(row){
         taskArray.push(row);
       }); //end on row magic
@@ -58,3 +58,35 @@ app.get('/getTask', function(req, res){
     } //end else
   }); // end pool connect
 });//end getTask
+
+app.post('/completeTask', function(req, res){
+  // console.log('this is req.body:', req.body.id);
+  pool.connect(function(err, connection, done){
+    if (err) {
+      res.send(400);
+    }//end err
+    else {
+      var resultSet = connection.query("UPDATE tasks SET active=false WHERE id=$1", [req.body.id]);
+      done();
+      res.send(200);
+    }//end else
+  });//end pool.connect
+});//end completeTask
+
+app.post('/addTask', function(req, res){
+  // console.log('this is addTask server side req.body:', req.body);
+  pool.connect(function(err, connection, done){
+    if (err) {
+      res.send(400);
+    }//end err
+    else {
+      console.log('successfully connecting to DB!!!');
+      var resultSet = connection.query("INSERT INTO tasks (who, what, due, notes) values ($1, $2, $3, $4)", [req.body.who, req.body.what, req.body.when, req.body.notes]);
+      taskArray = [];
+      done();
+      res.send(200);
+    }//end else
+
+  });//end pool.connect
+
+});//end addTask

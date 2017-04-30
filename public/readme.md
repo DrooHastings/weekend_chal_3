@@ -2,17 +2,19 @@ todos
 ==========
 [x]on ready function
 [x]build out index based on wireframe
-[]get tasks function w/ GET route
-[]app.get for get tasks
-[] complete tasks function w/ post route
-[] app.post in server for completeTasks
+[x]get tasks function w/ GET route
+[x]app.get for get tasks
+[x] complete tasks function w/ post route
+[x] app.post in server for completeTasks
 [] deleteTask function w/ DELETE route
 [] app.delete in server
-[] addTask POST route
-[] app.post for addTask
-[] toggle color function on client side
-[] build database
-[] test getTask is getting data
+[x] addTask POST route
+[x] app.post for addTask
+[x] toggle color function on client side
+[x] build database
+[x] test getTask is getting data
+[] add active = true in addTask server side?
+[] empty inputs
 
 
 
@@ -22,7 +24,7 @@ todos
 
 Allow user to create task
 Task stored in database
-Referesh DOM to show all tasks
+Refresh DOM to show all tasks
 Complete task option
   completed tasks should look different (div id)
   Whether a task is completed or not should be in DB (like active in Millie's project)
