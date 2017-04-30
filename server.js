@@ -81,12 +81,25 @@ app.post('/addTask', function(req, res){
     }//end err
     else {
       console.log('successfully connecting to DB!!!');
-      var resultSet = connection.query("INSERT INTO tasks (who, what, due, notes) values ($1, $2, $3, $4)", [req.body.who, req.body.what, req.body.when, req.body.notes]);
+      var resultSet = connection.query("INSERT INTO tasks (who, what, due, notes, active) values ($1, $2, $3, $4, $5)", [req.body.who, req.body.what, req.body.when, req.body.notes, true]);
       taskArray = [];
       done();
       res.send(200);
     }//end else
-
   });//end pool.connect
-
 });//end addTask
+
+app.post('/deleteTask', function(req, res){
+  console.log('/deleteTask route hit');
+  console.log(req.body.id);
+  pool.connect(function(err, connection, done){
+    if (err) {
+      res.sendStatus(400);
+    }//end err
+    else {
+      connection.query('DELETE FROM tasks WHERE id=$1', [req.body.id]);
+      done();
+      res.send('deleted');
+    }// end else
+  });//end pool.connect
+}); //end deleteTask

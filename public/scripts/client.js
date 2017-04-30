@@ -7,6 +7,7 @@ function onReady (){
 //event listeners
 $('#results-div').on('click', '#complete-button', completeTask);
 $('#create-button').on('click', addTask);
+$('#results-div').on('click', '#delete-button', deleteTask);
 
 
 //page load functions
@@ -29,14 +30,6 @@ function getTask(){
         var delButton = '<button id="delete-button" data-id=' +response[i].id + '>Delete</button>';
         $('#results-div').append('<div class="task-div">' + name + thing + when + info + compButton + delButton + '</div>' );
 
-
-        // append('<TR>' + '<td>' +response[i].owner + '</td>' + '<td>' +response[i].pet + '</td>' + '<td>' +response[i].breed + '</td>' + '<td>' +response[i].color + '</td>' + '</tr>');
-        // <div class="task-div" data-id='1'>
-        //     <p id="task-text">Do the dishes</p>
-        //     <p id="task-date">Tuesday May 2</p>
-        //
-        //     <button id="delete-button">Delete</button>
-        // </div>
       }//end for loop
     }//end success
   });//end ajax
@@ -77,17 +70,41 @@ function addTask (){
     data: taskToSend,
     success: function (response){
       $('#results-div').empty();
+      $('#who-task').attr("placeholder", "add a name").val("").focus().blur();
+      $('#what-task').attr("placeholder", "add a task").val("").focus().blur();
+      $('#when-task').attr("placeholder", "add a due date").val("").focus().blur();
+      $('#notes-task').attr("placeholder", "add your notes").val("").focus().blur();
       getTask();
       }//end success
   });//end POST
 }//end addTask
 
+function deleteTask (){
+  // console.log('in delete task');
+  // console.log($(this).data('id'));
+  confirm("Do you really want to delete?");
+  var deleteObject = {
+    id: $(this).data('id')
+  };
+  console.log(deleteObject);
+  $.ajax({
+    url: '/deleteTask',
+    method: 'POST',
+    data: deleteObject,
+    success: function(){
+      $('#results-div').empty();
+      getTask();
+    }//end success
+  });//end ajax
+}// end deleteTask
 
-//use for complete and delete
-// $.ajax ({
-//   url: '/getTask' + idNum,
-//   method: 'GET',
-//   success: function (response){
-//     console.log('in getTask');
-// }//end success
-// });//end ajax
+function abandonGame () {
+  var confirmAnswer = confirm("Do you really want to quit?");
+  if (confirmAnswer) {
+    console.log('quitter!!!');
+    $('.game-div').empty();
+    $('.game-div').append('<h1 id="quitter" >QUITTER!!!</h1>');
+    setTimeout (function () {loadGame() ;},5000);
+
+  }
+}
