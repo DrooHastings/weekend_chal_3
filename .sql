@@ -1,0 +1,9 @@
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY NOT NULL,
+    who VARCHAR(12),
+    what VARCHAR(42),
+    notes VARCHAR(42),
+    due VARCHAR(20),
+    active BOOLEAN,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
