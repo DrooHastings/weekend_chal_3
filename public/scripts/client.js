@@ -2,7 +2,7 @@ $(document).ready(onReady);
 
 //page load
 function onReady (){
-  console.log('JS and JQ up and running!');
+  // console.log('JS and JQ up and running!');
 
 //event listeners
 $('#results-div').on('click', '#complete-button', completeTask);
@@ -19,7 +19,7 @@ function getTask(){
     url: '/getTask',
     method: 'GET',
     success: function (response){
-      console.log('in getTask', response);
+      // console.log('in getTask', response);
       $('results-div').empty();
       for (var i = 0; i < response.length; i++) {
         var name ='<p class= "task-person">'+response[i].who + '</p>';
@@ -36,7 +36,7 @@ function getTask(){
 }// end getTask
 
 function completeTask (){
-  console.log('in completeTask');
+  // console.log('in completeTask');
   $(this).parent().css( "background-color", "#a23c3c" );//pull out later to maintain color on reload?
   // console.log($(this).data('id'));
   var completeObject = {
@@ -86,7 +86,7 @@ function deleteTask (){
   var deleteObject = {
     id: $(this).data('id')
   };
-  console.log(deleteObject);
+  // console.log(deleteObject);
   $.ajax({
     url: '/deleteTask',
     method: 'POST',
@@ -97,14 +97,3 @@ function deleteTask (){
     }//end success
   });//end ajax
 }// end deleteTask
-
-function abandonGame () {
-  var confirmAnswer = confirm("Do you really want to quit?");
-  if (confirmAnswer) {
-    console.log('quitter!!!');
-    $('.game-div').empty();
-    $('.game-div').append('<h1 id="quitter" >QUITTER!!!</h1>');
-    setTimeout (function () {loadGame() ;},5000);
-
-  }
-}

@@ -26,17 +26,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // create server
 app.listen (port, function(){
-  console.log('server up on :', port);
+  // console.log('server up on :', port);
 
 });//end server up
 
 app.get('/', function(req, res){
-  console.log('base url hit');
+  // console.log('base url hit');
   res.sendFile(path.resolve('public/views/index.html'));
 });//end base url
 
 app.get('/getTask', function(req, res){
-  console.log('/getTask route hit');
+  // console.log('/getTask route hit');
 
   pool.connect( function (err, connection, done){
     if (err){
@@ -44,7 +44,7 @@ app.get('/getTask', function(req, res){
       res.send(400);
     }
     else {
-      console.log('connected to the db in /getTask');
+      // console.log('connected to the db in /getTask');
       taskArray= [];
       var taskSet = connection.query("SELECT * from tasks");
       // console.log(taskSet);
@@ -80,7 +80,7 @@ app.post('/addTask', function(req, res){
       res.send(400);
     }//end err
     else {
-      console.log('successfully connecting to DB!!!');
+      // console.log('successfully connecting to DB!!!');
       var resultSet = connection.query("INSERT INTO tasks (who, what, due, notes, active) values ($1, $2, $3, $4, $5)", [req.body.who, req.body.what, req.body.when, req.body.notes, true]);
       taskArray = [];
       done();
@@ -90,7 +90,7 @@ app.post('/addTask', function(req, res){
 });//end addTask
 
 app.post('/deleteTask', function(req, res){
-  console.log('/deleteTask route hit');
+  // console.log('/deleteTask route hit');
   console.log(req.body.id);
   pool.connect(function(err, connection, done){
     if (err) {
