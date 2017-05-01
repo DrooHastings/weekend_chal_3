@@ -37,7 +37,7 @@ function getTask(){
 
 function completeTask (){
   console.log('in completeTask');
-  $(this).parent().css( "background-color", "red" );//pull out later to maintain color on reload?
+  $(this).parent().css( "background-color", "#a23c3c" );//pull out later to maintain color on reload?
   // console.log($(this).data('id'));
   var completeObject = {
     id: $(this).data('id')
